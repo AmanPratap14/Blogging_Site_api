@@ -13,6 +13,7 @@ BEGIN
 --     BEGIN
 --         DROP TABLE #AverageDeptSalary
 --     END
+
     DROP TABLE IF EXISTS #AverageDeptSalary
 
     SELECT UserJobInfo.Department
