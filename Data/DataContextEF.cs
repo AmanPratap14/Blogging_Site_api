@@ -29,10 +29,10 @@ namespace DotnetAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("TutorialAppSchema");
+            modelBuilder.HasDefaultSchema("DotnetWebAPIsSchema");
 
             modelBuilder.Entity<User>()
-                .ToTable("Users", "TutorialAppSchema")
+                .ToTable("Users", "DotnetWebAPIsSchema")
                 .HasKey(u => u.UserId);
 
             modelBuilder.Entity<UserSalary>()

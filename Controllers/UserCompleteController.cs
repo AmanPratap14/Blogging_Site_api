@@ -2,15 +2,16 @@ using DotnetAPI.Data;
 using DotnetAPI.Dtos;
 using DotnetAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace DotnetAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController : ControllerBase
+public class UserCompleteController : ControllerBase
 {
     DataContextDapper _dapper;
-    public UserController(IConfiguration config)
+    public UserCompleteController(IConfiguration config)
     {
         _dapper = new DataContextDapper(config);
     }
@@ -21,19 +22,16 @@ public class UserController : ControllerBase
         return _dapper.LoadDataSingle<DateTime>("SELECT GETDATE()");
     }
 
-    [HttpGet("GetUsers")]
+    [HttpGet("GetUsers/{userId}")]
     // public IEnumerable<User> GetUsers()
-    public IEnumerable<User> GetUsers()
+    public IEnumerable<UserComplete> GetUsers(int userId)
     {
-        string sql = @"
-            SELECT [UserId],
-                [FirstName],
-                [LastName],
-                [Email],
-                [Gender],
-                [Active] 
-            FROM DotnetWebAPIsSchema.Users";
-        IEnumerable<User> users = _dapper.LoadData<User>(sql);
+        string sql = @"EXEC DotnetWebAPIsSchema.spUsers_Get";
+        if (userId != 0){
+            sql += "@UserId=" + userId.ToString();
+        }
+        
+        IEnumerable<UserComplete> users = _dapper.LoadData<UserComplete>(sql);
         return users;
     }
 
