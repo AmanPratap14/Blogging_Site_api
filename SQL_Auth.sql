@@ -15,5 +15,6 @@ CREATE TABLE DotnetWebAPIsSchema.Auth (
 SELECT * FROM DotnetWebAPIsSchema.Auth WHERE Email =''
 
 INSERT INTO DotnetWebAPIsSchema.Auth ([Email],
-[PasswordHash],
-[PasswordSalt]) VALUE ()
+    [PasswordHash],
+    [PasswordSalt]
+)VALUE ()

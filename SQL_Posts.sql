@@ -19,6 +19,9 @@ SELECT [PostId],
         [PostUpdated] 
     FROM DotnetWebAPIsSchema.Posts
 
+SELECT * FROM DotnetWebAPIsSchema.Posts 
+WHERE PostTitle LIKE '%search%' OR PostContent LIKE '%search%'
+
 INSERT INTO DotnetWebAPIsSchema.Posts([PostId],
         [UserId],
         [PostTitle],
@@ -27,9 +30,8 @@ INSERT INTO DotnetWebAPIsSchema.Posts([PostId],
         [PostUpdated]) VALUES ()
 
 UPDATE DotnetWebAPIsSchema.Posts 
-    SET PostContent = '', PostTitle= '', PostUpdated = GETDATE()
-        WHERE PostId = 4
-    
+    SET UserId= 1009
+    WHERE PostId = 1
 
 DELETE FROM DotnetWebAPIsSchema.Posts 
     WHERE PostId = 4
