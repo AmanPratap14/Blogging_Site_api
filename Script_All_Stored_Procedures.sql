@@ -287,3 +287,5 @@ BEGIN
         END
 END
 GO
+
+EXEC DotnetWebAPIsSchema.spUsers_Get @UserId=4, @Active=True

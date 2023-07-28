@@ -22,35 +22,27 @@ public class UserCompleteController : ControllerBase
         return _dapper.LoadDataSingle<DateTime>("SELECT GETDATE()");
     }
 
-    [HttpGet("GetUsers/{userId}")]
+    [HttpGet("GetUsers/{userId}/{isActive}")]
     // public IEnumerable<User> GetUsers()
-    public IEnumerable<UserComplete> GetUsers(int userId)
+    public IEnumerable<UserComplete> GetUsers(int userId, bool isActive)
     {
         string sql = @"EXEC DotnetWebAPIsSchema.spUsers_Get";
-        if (userId != 0){
-            sql += "@UserId=" + userId.ToString();
+        string parameters = "";
+        if (userId != 0)
+        {
+            parameters += ", @UserId=" + userId.ToString();
         }
-        
+        if (isActive)
+        {
+            parameters += ", @Active=" + isActive.ToString();
+        }
+        // Console.WriteLine(sql);
+        sql += parameters.Substring(1); //, parameters.Length);
+
         IEnumerable<UserComplete> users = _dapper.LoadData<UserComplete>(sql);
         return users;
     }
 
-    [HttpGet("GetSingleUser/{userId}")]
-    // public IEnumerable<User> GetUsers()
-    public User GetSingleUser(int userId)
-    {
-        string sql = @"
-            SELECT [UserId],
-                [FirstName],
-                [LastName],
-                [Email],
-                [Gender],
-                [Active] 
-            FROM DotnetWebAPIsSchema.Users
-                WHERE UserId = " + userId.ToString(); //"7"
-        User user = _dapper.LoadDataSingle<User>(sql);
-        return user;
-    }
     
     [HttpPut("EditUser")]
     public IActionResult EditUser(User user)
@@ -120,16 +112,6 @@ public class UserCompleteController : ControllerBase
         throw new Exception("Failed to Delete User");
     }
 
-    [HttpGet("UserSalary/{userId}")]
-    public IEnumerable<UserSalary> GetUserSalary(int userId)
-    {
-        return _dapper.LoadData<UserSalary>(@"
-            SELECT UserSalary.UserId
-                    , UserSalary.Salary
-                    , UserSalary.AvgSalary
-            FROM  DotnetWebAPIsSchema.UserSalary
-                WHERE UserId = " + userId.ToString());
-    }
 
     [HttpPost("UserSalary")]
     public IActionResult PostUserSalary(UserSalary userSalaryForInsert)
@@ -173,17 +155,6 @@ public class UserCompleteController : ControllerBase
             return Ok();
         }
         throw new Exception("Deleting User Salary failed on save");
-    }
-
-    [HttpGet("UserJobInfo/{userId}")]
-    public IEnumerable<UserJobInfo> GetUserJobInfo(int userId)
-    {
-        return _dapper.LoadData<UserJobInfo>(@"
-            SELECT  UserJobInfo.UserId
-                    , UserJobInfo.JobTitle
-                    , UserJobInfo.Department
-            FROM  DotnetWebAPIsSchema.UserJobInfo
-                WHERE UserId = " + userId.ToString());
     }
 
     [HttpPost("UserJobInfo")]
