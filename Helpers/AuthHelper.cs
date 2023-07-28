@@ -33,7 +33,7 @@ namespace DotnetAPI.Helpers
             Claim[] claims = new Claim[] {
                 new Claim("userId", userId.ToString())
             };
-            
+
             string? tokenKeyString = _config.GetSection("AppSettings:TokenKey").Value;
 
             SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(

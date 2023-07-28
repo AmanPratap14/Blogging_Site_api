@@ -26,7 +26,7 @@ namespace DotnetAPI.Controllers
                     [PostContent],
                     [PostCreated],
                     [PostUpdated] 
-                FROM DotnetWebAPIsSchema.Posts";
+                FROM TutorialAppSchema.Posts";
                 
             return _dapper.LoadData<Post>(sql);
         }
@@ -40,7 +40,7 @@ namespace DotnetAPI.Controllers
                     [PostContent],
                     [PostCreated],
                     [PostUpdated] 
-                FROM DotnetWebAPIsSchema.Posts
+                FROM TutorialAppSchema.Posts
                     WHERE PostId = " + postId.ToString();
                 
             return _dapper.LoadDataSingle<Post>(sql);
@@ -55,7 +55,7 @@ namespace DotnetAPI.Controllers
                     [PostContent],
                     [PostCreated],
                     [PostUpdated] 
-                FROM DotnetWebAPIsSchema.Posts
+                FROM TutorialAppSchema.Posts
                     WHERE UserId = " + userId.ToString();
                 
             return _dapper.LoadData<Post>(sql);
@@ -70,7 +70,7 @@ namespace DotnetAPI.Controllers
                     [PostContent],
                     [PostCreated],
                     [PostUpdated] 
-                FROM DotnetWebAPIsSchema.Posts
+                FROM TutorialAppSchema.Posts
                     WHERE UserId = " + this.User.FindFirst("userId")?.Value;
                 
             return _dapper.LoadData<Post>(sql);
@@ -85,7 +85,7 @@ namespace DotnetAPI.Controllers
                     [PostContent],
                     [PostCreated],
                     [PostUpdated] 
-                FROM DotnetWebAPIsSchema.Posts
+                FROM TutorialAppSchema.Posts
                     WHERE PostTitle LIKE '%" + searchParam + "%'" +
                         " OR PostContent LIKE '%" + searchParam + "%'";
                 
@@ -96,7 +96,7 @@ namespace DotnetAPI.Controllers
         public IActionResult AddPost(PostToAddDto postToAdd)
         {
             string sql = @"
-            INSERT INTO DotnetWebAPIsSchema.Posts(
+            INSERT INTO TutorialAppSchema.Posts(
                 [UserId],
                 [PostTitle],
                 [PostContent],
@@ -118,7 +118,7 @@ namespace DotnetAPI.Controllers
         public IActionResult EditPost(PostToEditDto postToEdit)
         {
             string sql = @"
-            UPDATE DotnetWebAPIsSchema.Posts 
+            UPDATE TutorialAppSchema.Posts 
                 SET PostContent = '" + postToEdit.PostContent + 
                 "', PostTitle = '" + postToEdit.PostTitle + 
                 @"', PostUpdated = GETDATE()
@@ -136,7 +136,7 @@ namespace DotnetAPI.Controllers
         [HttpDelete("Post/{postId}")]
         public IActionResult DeletePost(int postId)
         {
-            string sql = @"DELETE FROM DotnetWebAPIsSchema.Posts 
+            string sql = @"DELETE FROM TutorialAppSchema.Posts 
                 WHERE PostId = " + postId.ToString()+
                     "AND UserId = " + this.User.FindFirst("userId")?.Value;
 

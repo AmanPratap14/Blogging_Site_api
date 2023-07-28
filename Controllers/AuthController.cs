@@ -34,7 +34,7 @@ namespace DotnetAPI.Controllers
         {
             if (userForRegistration.Password == userForRegistration.PasswordConfirm)
             {
-                string sqlCheckUserExists = "SELECT Email FROM DotnetWebAPIsSchema.Auth WHERE Email = '" +
+                string sqlCheckUserExists = "SELECT Email FROM TutorialAppSchema.Auth WHERE Email = '" +
                     userForRegistration.Email + "'";
 
                 IEnumerable<string> existingUsers = _dapper.LoadData<string>(sqlCheckUserExists);
@@ -49,7 +49,7 @@ namespace DotnetAPI.Controllers
                     byte[] passwordHash = _authHelper.GetPasswordHash(userForRegistration.Password, passwordSalt);
 
                     string sqlAddAuth = @"
-                        INSERT INTO DotnetWebAPIsSchema.Auth  ([Email],
+                        INSERT INTO TutorialAppSchema.Auth  ([Email],
                         [PasswordHash],
                         [PasswordSalt]) VALUES ('" + userForRegistration.Email +
                         "', @PasswordHash, @PasswordSalt)";
@@ -69,7 +69,7 @@ namespace DotnetAPI.Controllers
                     {
                         
                         string sqlAddUser = @"
-                            INSERT INTO DotnetWebAPIsSchema.Users(
+                            INSERT INTO TutorialAppSchema.Users(
                                 [FirstName],
                                 [LastName],
                                 [Email],
@@ -100,7 +100,7 @@ namespace DotnetAPI.Controllers
         {
             string sqlForHashAndSalt = @"SELECT 
                 [PasswordHash],
-                [PasswordSalt] FROM DotnetWebAPIsSchema.Auth WHERE Email = '" +
+                [PasswordSalt] FROM TutorialAppSchema.Auth WHERE Email = '" +
                 userForLogin.Email + "'";
 
             UserForLoginConfirmationDto userForConfirmation = _dapper
@@ -118,7 +118,7 @@ namespace DotnetAPI.Controllers
             }
 
             string userIdSql = @"
-                SELECT UserId FROM DotnetWebAPIsSchema.Users WHERE Email = '" +
+                SELECT UserId FROM TutorialAppSchema.Users WHERE Email = '" +
                 userForLogin.Email + "'";
 
             int userId = _dapper.LoadDataSingle<int>(userIdSql);
@@ -132,7 +132,7 @@ namespace DotnetAPI.Controllers
         public string RefreshToken()
         {
             string userIdSql = @"
-                SELECT UserId FROM DotnetWebAPIsSchema.Users WHERE UserId = '" +
+                SELECT UserId FROM TutorialAppSchema.Users WHERE UserId = '" +
                 User.FindFirst("userId")?.Value + "'";
             
             int userId = _dapper.LoadDataSingle<int>(userIdSql);

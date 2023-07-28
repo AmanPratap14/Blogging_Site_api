@@ -32,7 +32,7 @@ public class UserController : ControllerBase
                 [Email],
                 [Gender],
                 [Active] 
-            FROM DotnetWebAPIsSchema.Users";
+            FROM TutorialAppSchema.Users";
         IEnumerable<User> users = _dapper.LoadData<User>(sql);
         return users;
     }
@@ -48,7 +48,7 @@ public class UserController : ControllerBase
                 [Email],
                 [Gender],
                 [Active] 
-            FROM DotnetWebAPIsSchema.Users
+            FROM TutorialAppSchema.Users
                 WHERE UserId = " + userId.ToString(); //"7"
         User user = _dapper.LoadDataSingle<User>(sql);
         return user;
@@ -58,7 +58,7 @@ public class UserController : ControllerBase
     public IActionResult EditUser(User user)
     {
         string sql = @"
-        UPDATE DotnetWebAPIsSchema.Users
+        UPDATE TutorialAppSchema.Users
             SET [FirstName] = '" + user.FirstName + 
                 "', [LastName] = '" + user.LastName +
                 "', [Email] = '" + user.Email + 
@@ -81,7 +81,7 @@ public class UserController : ControllerBase
     public IActionResult AddUser(UserToAddDto user)
     {
         string sql = @"
-            INSERT INTO DotnetWebAPIsSchema.Users(
+            INSERT INTO TutorialAppSchema.Users(
                 [FirstName],
                 [LastName],
                 [Email],
@@ -109,7 +109,7 @@ public class UserController : ControllerBase
     public IActionResult DeleteUser(int userId)
     {
         string sql = @"
-            DELETE FROM DotnetWebAPIsSchema.Users 
+            DELETE FROM TutorialAppSchema.Users 
                 WHERE UserId = " + userId.ToString();
         
         Console.WriteLine(sql);
@@ -129,7 +129,7 @@ public class UserController : ControllerBase
             SELECT UserSalary.UserId
                     , UserSalary.Salary
                     , UserSalary.AvgSalary
-            FROM  DotnetWebAPIsSchema.UserSalary
+            FROM  TutorialAppSchema.UserSalary
                 WHERE UserId = " + userId.ToString());
     }
 
@@ -137,7 +137,7 @@ public class UserController : ControllerBase
     public IActionResult PostUserSalary(UserSalary userSalaryForInsert)
     {
         string sql = @"
-            INSERT INTO DotnetWebAPIsSchema.UserSalary (
+            INSERT INTO TutorialAppSchema.UserSalary (
                 UserId,
                 Salary
             ) VALUES (" + userSalaryForInsert.UserId.ToString()
@@ -154,7 +154,7 @@ public class UserController : ControllerBase
     [HttpPut("UserSalary")]
     public IActionResult PutUserSalary(UserSalary userSalaryForUpdate)
     {
-        string sql = "UPDATE DotnetWebAPIsSchema.UserSalary SET Salary=" 
+        string sql = "UPDATE TutorialAppSchema.UserSalary SET Salary=" 
             + userSalaryForUpdate.Salary
             + " WHERE UserId=" + userSalaryForUpdate.UserId.ToString();
 
@@ -168,7 +168,7 @@ public class UserController : ControllerBase
     [HttpDelete("UserSalary/{userId}")]
     public IActionResult DeleteUserSalary(int userId)
     {
-        string sql = "DELETE FROM DotnetWebAPIsSchema.UserSalary WHERE UserId=" + userId.ToString();
+        string sql = "DELETE FROM TutorialAppSchema.UserSalary WHERE UserId=" + userId.ToString();
 
         if (_dapper.ExecuteSql(sql))
         {
@@ -184,7 +184,7 @@ public class UserController : ControllerBase
             SELECT  UserJobInfo.UserId
                     , UserJobInfo.JobTitle
                     , UserJobInfo.Department
-            FROM  DotnetWebAPIsSchema.UserJobInfo
+            FROM  TutorialAppSchema.UserJobInfo
                 WHERE UserId = " + userId.ToString());
     }
 
@@ -192,7 +192,7 @@ public class UserController : ControllerBase
     public IActionResult PostUserJobInfo(UserJobInfo userJobInfoForInsert)
     {
         string sql = @"
-            INSERT INTO DotnetWebAPIsSchema.UserJobInfo (
+            INSERT INTO TutorialAppSchema.UserJobInfo (
                 UserId,
                 Department,
                 JobTitle
@@ -211,7 +211,7 @@ public class UserController : ControllerBase
     [HttpPut("UserJobInfo")]
     public IActionResult PutUserJobInfo(UserJobInfo userJobInfoForUpdate)
     {
-        string sql = "UPDATE DotnetWebAPIsSchema.UserJobInfo SET Department='" 
+        string sql = "UPDATE TutorialAppSchema.UserJobInfo SET Department='" 
             + userJobInfoForUpdate.Department
             + "', JobTitle='"
             + userJobInfoForUpdate.JobTitle
@@ -227,7 +227,7 @@ public class UserController : ControllerBase
     // [HttpDelete("UserJobInfo/{userId}")]
     // public IActionResult DeleteUserJobInfo(int userId)
     // {
-    //     string sql = "DELETE FROM DotnetWebAPIsSchema.UserJobInfo  WHERE UserId=" + userId;
+    //     string sql = "DELETE FROM TutorialAppSchema.UserJobInfo  WHERE UserId=" + userId;
 
     //     if (_dapper.ExecuteSql(sql))
     //     {
@@ -239,7 +239,7 @@ public class UserController : ControllerBase
     public IActionResult DeleteUserJobInfo(int userId)
     {
         string sql = @"
-            DELETE FROM DotnetWebAPIsSchema.UserJobInfo 
+            DELETE FROM TutorialAppSchema.UserJobInfo 
                 WHERE UserId = " + userId.ToString();
         
         Console.WriteLine(sql);
