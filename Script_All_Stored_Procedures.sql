@@ -161,7 +161,7 @@ BEGIN
     DELETE  FROM DotnetWebAPIsSchema.Users
     WHERE  Users.UserId = @UserId;
 
-    DELETE  FROM DotnetWebAPIsSchema.Auth
+    DELETE  FROM DotnetWebAPIsSchema.Auth 
     WHERE  Auth.Email = @Email;
 END;
 GO
@@ -254,7 +254,7 @@ AS
 BEGIN
     SELECT [Auth].[PasswordHash],
         [Auth].[PasswordSalt] 
-    FROM DotnetWebAPIsSchema.Auth AS Auth 
+    FROM DotnetWebAPIsSchema.Auth  AS Auth 
         WHERE Auth.Email = @Email
 END;
 GO
@@ -265,10 +265,10 @@ CREATE OR ALTER PROCEDURE DotnetWebAPIsSchema.spRegistration_Upsert
     @PasswordSalt VARBINARY(MAX)
 AS 
 BEGIN
-    IF NOT EXISTS (SELECT * FROM DotnetWebAPIsSchema.Auth 
+    IF NOT EXISTS (SELECT * FROM DotnetWebAPIsSchema.Auth  
         WHERE Email = @Email)
         BEGIN
-            INSERT INTO DotnetWebAPIsSchema.Auth(
+            INSERT INTO DotnetWebAPIsSchema.Auth (
                 [Email],
                 [PasswordHash],
                 [PasswordSalt]
@@ -280,7 +280,7 @@ BEGIN
         END
     ELSE
         BEGIN
-            UPDATE DotnetWebAPIsSchema.Auth 
+            UPDATE DotnetWebAPIsSchema.Auth  
                 SET PasswordHash = @PasswordHash,
                     PasswordSalt = @PasswordSalt
                 WHERE Email = @Email
@@ -289,3 +289,6 @@ END
 GO
 
 EXEC DotnetWebAPIsSchema.spUsers_Get @UserId=4, @Active=True
+
+
+-- SELECT * FROM DotnetWebAPIsSchema.Users
