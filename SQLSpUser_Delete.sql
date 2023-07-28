@@ -8,7 +8,7 @@ BEGIN
     DELETE From DotnetWebAPIsSchema.Users
         WHERE UserId = @UserId
 
-    DELETE From DotnetWebAPIsSchema.Usersalary
+    DELETE From DotnetWebAPIsSchema.UserSalary
         WHERE UserId = @UserId
 
     DELETE From DotnetWebAPIsSchema.UserJobInfo
