@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetAPI.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostController : ControllerBase
@@ -22,6 +22,7 @@ namespace DotnetAPI.Controllers
         {
             string sql = @"EXEC DotnetWebAPIsSchema.spPosts_Get";
             string parameters = "";
+
             if (postId != 0)
             {
                 parameters += ", @PostId=" + postId.ToString();
@@ -34,12 +35,12 @@ namespace DotnetAPI.Controllers
             {
                 parameters += ", @SearchValue='" + searchParam + "'";
             }
+
             if (parameters.Length > 0)
             { 
                 sql += parameters.Substring(1);
             }
-            // Console.WriteLine(sql);
-            
+                
             return _dapper.LoadData<Post>(sql);
         }
 

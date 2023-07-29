@@ -36,10 +36,12 @@ public class UserCompleteController : ControllerBase
         {
             parameters += ", @Active=" + isActive.ToString();
         }
+
         if (parameters.Length > 0)
         {
             sql += parameters.Substring(1);//, parameters.Length);
         }
+
         IEnumerable<UserComplete> users = _dapper.LoadData<UserComplete>(sql);
         return users;
     }
@@ -62,6 +64,7 @@ public class UserCompleteController : ControllerBase
         {
             return Ok();
         } 
+
         throw new Exception("Failed to Update User");
     }
 
@@ -75,6 +78,7 @@ public class UserCompleteController : ControllerBase
         {
             return Ok();
         } 
+
         throw new Exception("Failed to Delete User");
     }
 }
