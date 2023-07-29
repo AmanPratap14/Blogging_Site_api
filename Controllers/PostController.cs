@@ -17,6 +17,7 @@ namespace DotnetAPI.Controllers
             _dapper = new DataContextDapper(config);
         }
 
+
         [HttpGet("Posts/{postId}/{userId}/{searchParam}")]
         public IEnumerable<Post> GetPosts(int postId = 0, int userId = 0, string searchParam = "None")
         {
@@ -35,14 +36,13 @@ namespace DotnetAPI.Controllers
             {
                 parameters += ", @SearchValue='" + searchParam + "'";
             }
-
             if (parameters.Length > 0)
             { 
                 sql += parameters.Substring(1);
-            }
-                
+            }                
             return _dapper.LoadData<Post>(sql);
         }
+
 
         [HttpGet("MyPosts")]
         public IEnumerable<Post> GetMyPosts()
@@ -52,6 +52,7 @@ namespace DotnetAPI.Controllers
                 
             return _dapper.LoadData<Post>(sql);
         }
+        
 
         [HttpPut("UpsertPost")]
         public IActionResult UpsertPost(Post postToUpsert)
@@ -64,12 +65,10 @@ namespace DotnetAPI.Controllers
             if (postToUpsert.PostId > 0) {
                 sql +=  ", @PostId = " + postToUpsert.PostId;
             }
-
             if (_dapper.ExecuteSql(sql))
             {
                 return Ok();
             }
-
             throw new Exception("Failed to upsert post!");
         }
 
@@ -80,13 +79,10 @@ namespace DotnetAPI.Controllers
             string sql = @"EXEC DotnetWebAPIsSchema.spPost_Delete @PostId = " + 
                     postId.ToString() +
                     ", @UserId = " + this.User.FindFirst("userId")?.Value;
-
-            
             if (_dapper.ExecuteSql(sql))
             {
                 return Ok();
             }
-
             throw new Exception("Failed to delete post!");
         }
     }

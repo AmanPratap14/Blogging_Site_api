@@ -1,17 +1,10 @@
 using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using Dapper;
 using DotnetAPI.Data;
 using DotnetAPI.Dtos;
 using DotnetAPI.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.IdentityModel.Tokens;
 
 namespace DotnetAPI.Controllers
 {
@@ -57,19 +50,6 @@ namespace DotnetAPI.Controllers
                             ", @JobTitle = '" + userForRegistration.JobTitle + 
                             "', @Department = '" + userForRegistration.Department + 
                             "', @Salary = '" + userForRegistration.Salary + "'";
-                        // string sqlAddUser = @"
-                        //     INSERT INTO DotnetWebAPIsSchema.Users(
-                        //         [FirstName],
-                        //         [LastName],
-                        //         [Email],
-                        //         [Gender],
-                        //         [Active]
-                        //     ) VALUES (" +
-                        //         "'" + userForRegistration.FirstName + 
-                        //         "', '" + userForRegistration.LastName +
-                        //         "', '" + userForRegistration.Email + 
-                        //         "', '" + userForRegistration.Gender + 
-                        //         "', 1)";
                         if (_dapper.ExecuteSql(sqlAddUser))
                         {
                             return Ok();
