@@ -1,5 +1,5 @@
 USE WebApiDataBase
-
+GO
 CREATE TABLE DotnetWebAPIsSchema.Posts (
     PostId INT IDENTITY(1, 1),
     UserId INT,
