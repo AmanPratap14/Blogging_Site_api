@@ -46,11 +46,16 @@ namespace DotnetAPI.Data
             // {
             //     commandWithParams.Parameters.Add(parameter);
             // }
+
             // SqlConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             // dbConnection.Open();
+
             // commandWithParams.Connection = dbConnection;
+
             // int rowsAffected = commandWithParams.ExecuteNonQuery();
+
             // dbConnection.Close();
+
             // return rowsAffected > 0;
         }
 
