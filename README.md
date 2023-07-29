@@ -4,53 +4,58 @@ This is blogging _site API in dotnet, C# where a client can add User: details, j
 add required packages with dotnet add package "PackageName",
 add DataBase Connection String to connect the database,
 This is C# and Dotnet APIs
-﻿
 
-GET
-http://localhost:5000/Auth/RefreshToken
-http://localhost:5000/Auth/RefreshToken
-To get a new Token of login
 
-Request Headers
-Authorization
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwibmJmIjoxNjkwNjEyMzc2LCJleHAiOjE2OTA2OTg3NzYsImlhdCI6MTY5MDYxMjM3Nn0.nauh3zNO59Wx6GZ3IdTF92Fcddg7YIZf08YjcnRPdH9HNZxUDvx6sl6KY7DtWVLyQ0w9MnKhZ-F-d4IAloxLug
-GET
-http://localhost:5000/Post/Posts/0/0/None
-http://localhost:5000/Post/Posts/0/0/None
-To get all Post with Posts/0/0/none
+ # C# and Dotnet APIs
 
-Request Headers
-Authorization
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwibmJmIjoxNjkwNjEyMzc2LCJleHAiOjE2OTA2OTg3NzYsImlhdCI6MTY5MDYxMjM3Nn0.nauh3zNO59Wx6GZ3IdTF92Fcddg7YIZf08YjcnRPdH9HNZxUDvx6sl6KY7DtWVLyQ0w9MnKhZ-F-d4IAloxLug
-GET
-http://localhost:5000/Post/MyPosts
-http://localhost:5000/Post/MyPosts
-to get only a single UserId's all Posts
+## Auth API
 
-Request Headers
-Authorization
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwibmJmIjoxNjkwNjEyMzc2LCJleHAiOjE2OTA2OTg3NzYsImlhdCI6MTY5MDYxMjM3Nn0.nauh3zNO59Wx6GZ3IdTF92Fcddg7YIZf08YjcnRPdH9HNZxUDvx6sl6KY7DtWVLyQ0w9MnKhZ-F-d4IAloxLug
-PUT
-http://localhost:5000/Post/MyPosts
-http://localhost:5000/Post/UpsertPost
-this Put/Update request either creates a new post or Update
+### GET /Auth/RefreshToken
 
-Request Headers
-Authorization
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwibmJmIjoxNjkwNjEyMzc2LCJleHAiOjE2OTA2OTg3NzYsImlhdCI6MTY5MDYxMjM3Nn0.nauh3zNO59Wx6GZ3IdTF92Fcddg7YIZf08YjcnRPdH9HNZxUDvx6sl6KY7DtWVLyQ0w9MnKhZ-F-d4IAloxLug
-Body
-raw (json)
-JSON
+To get a new Token of login.
+
+#### Request Headers
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwibmJmIjoxNjkwNjEyMzc2LCJleHAiOjE2OTA2OTg3NzYsImlhdCI6MTY5MDYxMjM3Nn0.nauh3zNO59Wx6GZ3IdTF92Fcddg7YIZf08YjcnRPdH9HNZxUDvx6sl6KY7DtWVLyQ0w9MnKhZ-F-d4IAloxLug
+
+
+## Post API
+
+### GET /Post/Posts/0/0/None
+
+To get all Posts.
+
+#### Request Headers
+Authorization: Bearer  ''
+
+
+### GET /Post/MyPosts
+
+To get all posts of the single UserId.
+
+#### Request Headers
+Authorization: Bearer ""
+
+
+
+### PUT /Post/MyPosts
+
+This Put/Update request either creates a new post or updates an existing one.
+
+#### Request Headers
+Authorization: Bearer ""
+
+#### Body (raw - json)
+
+```json
 {
     "postId": 5,
-    "postTitle": "Fourth test :Post4 updaite",
-    "postContent": "this is testing for updating POst5"    
+    "postTitle": "Fourth test: Post4 update",
+    "postContent": "This is testing for updating Post5"
 }
-DELETE
-http://localhost:5000/Post/Post/3
-http://localhost:5000/Post/Post/1
-To delete the Post with PostId current User and thus not able to delete other user's posts
+
+
+DELETE /Post/Post/3
+To delete the Post with the postId of the current User. This does not allow deleting other users' posts.
 
 Request Headers
-Authorization
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAzIiwibmJmIjoxNjkwNjEyMzc2LCJleHAiOjE2OTA2OTg3NzYsImlhdCI6MTY5MDYxMjM3Nn0.nauh3zNO59Wx6GZ3IdTF92Fcddg7YIZf08YjcnRPdH9HNZxUDvx6sl6KY7DtWVLyQ0w9MnKhZ-F-d4IAloxLug
+Authorization: Bearer 
