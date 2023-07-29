@@ -12,6 +12,9 @@ GO
 
 SELECT * FROM DotnetWebAPIsSchema.Auth
 SELECT * FROM DotnetWebAPIsSchema.Users
+SELECT * FROM DotnetWebAPIsSchema.UserJobInfo
+SELECT * FROM DotnetWebAPIsSchema.Usersalary
+SELECT * FROM DotnetWebAPIsSchema.Posts
 
 
 
