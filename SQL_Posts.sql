@@ -22,17 +22,17 @@ SELECT [PostId],
 SELECT * FROM DotnetWebAPIsSchema.Posts 
 WHERE PostTitle LIKE '%search%' OR PostContent LIKE '%search%'
 
-INSERT INTO DotnetWebAPIsSchema.Posts([PostId],
-        [UserId],
-        [PostTitle],
-        [PostContent],
-        [PostCreated],
-        [PostUpdated]) VALUES ()
+-- INSERT INTO DotnetWebAPIsSchema.Posts([PostId],
+--         [UserId],
+--         [PostTitle],
+--         [PostContent],
+--         [PostCreated],
+--         [PostUpdated]) VALUES ()
 
-UPDATE DotnetWebAPIsSchema.Posts 
-    SET UserId= 1009
-    WHERE PostId = 1
+-- UPDATE DotnetWebAPIsSchema.Posts 
+--     SET UserId=
+--     WHERE PostId = 1
 
-DELETE FROM DotnetWebAPIsSchema.Posts 
-    WHERE PostId = 4
-    AND UserId = 3
+-- DELETE FROM DotnetWebAPIsSchema.Posts 
+--     WHERE PostId = 4
+--     AND UserId = 3
