@@ -7,7 +7,6 @@ using Dapper;
 using DotnetAPI.Data;
 using DotnetAPI.Dtos;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DotnetAPI.Helpers
@@ -43,13 +42,13 @@ namespace DotnetAPI.Helpers
                 new Claim("userId", userId.ToString())
             };
             
-string? tokenKeyString = _config.GetSection("AppSettings:TokenKey").Value;
+            string? tokenKeyString = _config.GetSection("AppSettings:TokenKey").Value;
 
-SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(
-        Encoding.UTF8.GetBytes(
-            tokenKeyString != null ? tokenKeyString : ""
-        )
-    );
+            SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(
+                        tokenKeyString != null ? tokenKeyString : ""
+                    )
+                );
 
             SigningCredentials credentials = new SigningCredentials(
                     tokenKey, 
@@ -82,6 +81,11 @@ SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(
 
             byte[] passwordHash = GetPasswordHash(userForSetPassword.Password, passwordSalt);
 
+            Console.WriteLine("0x" + BitConverter.ToString(passwordHash).Replace("-",""));
+            Console.WriteLine(System.Text.Encoding.UTF8.GetString(passwordHash, 0, passwordHash.Length));
+            Console.WriteLine(System.Text.Encoding.UTF8.GetString(passwordHash));
+            Console.WriteLine(Convert.ToBase64String(passwordHash));
+
             string sqlAddAuth = @"EXEC DotnetWebAPIsSchema.spRegistration_Upsert
                 @Email = @EmailParam, 
                 @PasswordHash = @PasswordHashParam, 
@@ -98,8 +102,6 @@ SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(
             sqlParameters.Add("@PasswordSaltParam", passwordSalt, DbType.Binary);
 
             return _dapper.ExecuteSqlWithParameters(sqlAddAuth, sqlParameters);
-        }
-
-        
+        }        
     }
 }
