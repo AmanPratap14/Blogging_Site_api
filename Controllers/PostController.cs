@@ -42,7 +42,7 @@ namespace DotnetAPI.Controllers
             }                
             return _dapper.LoadData<Post>(sql);
         }
-
+        
 
         [HttpGet("MyPosts")]
         public IEnumerable<Post> GetMyPosts()
@@ -52,7 +52,6 @@ namespace DotnetAPI.Controllers
                 
             return _dapper.LoadData<Post>(sql);
         }
-        
 
         [HttpPut("UpsertPost")]
         public IActionResult UpsertPost(Post postToUpsert)
